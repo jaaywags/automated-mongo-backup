@@ -20,7 +20,7 @@ services:
       - WEB_UI_PORT=${WEB_UI_PORT}
       - TIMEZONE=${TIMEZONE}
     volumes:
-      - ./backups:/backups
+      - ${BACKUP_HOST_PATH:-./backups}:/backups
     ports:
       - "3000:3000"
     networks:
