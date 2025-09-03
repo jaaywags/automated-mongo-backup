@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mongo-backup:
     image: jaaywags/automated-mongo-backup:latest
-    # build: .  # Build locally since image doesn't exist yet
+    # build: .
     container_name: automated-mongo-backup
     restart: unless-stopped
     environment:
