@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mongo-backup:
+    # image: yourusername/automated-mongo-backup:latest
+    build: .  # Build locally since image doesn't exist yet
+    container_name: automated-mongo-backup
+    restart: unless-stopped
+    environment:
+      - MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}
+      - DAILY_BACKUP_INTERVAL_MINUTES=${DAILY_BACKUP_INTERVAL_MINUTES}
+      - MAX_DAILY_BACKUPS=${MAX_DAILY_BACKUPS}
+      - NUMBER_OF_WEEKLY_BACKUPS=${NUMBER_OF_WEEKLY_BACKUPS}
+      - MAX_AGE_OF_WEEKLY_BACKUPS=${MAX_AGE_OF_WEEKLY_BACKUPS}
+      - NUMBER_OF_MONTHLY_BACKUPS=${NUMBER_OF_MONTHLY_BACKUPS}
+      - MAX_AGE_OF_MONTHLY_BACKUPS=${MAX_AGE_OF_MONTHLY_BACKUPS}
+      - NUMBER_OF_YEARLY_BACKUPS=${NUMBER_OF_YEARLY_BACKUPS}
+      - MAX_AGE_OF_YEARLY_BACKUPS=${MAX_AGE_OF_YEARLY_BACKUPS}
+      - BACKUP_PATH=${BACKUP_PATH}
+      - WEB_UI_PORT=${WEB_UI_PORT}
+      - TIMEZONE=${TIMEZONE}
+    volumes:
+      - ./backups:/backups
+    ports:
+      - "3000:3000"
+    networks:
+      - backup-network
+    
+    # Resource limits to prevent overwhelming the system
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+
+networks:
+  backup-network:
+    driver: bridge
