@@ -29,7 +29,7 @@
 ### 1. Clone and Configure
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:jaaywags/automated-mongo-backup.git
 cd automated-mongo-backup
 cp .env.example .env
 ```
