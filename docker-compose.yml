@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   mongo-backup:
-    # image: yourusername/automated-mongo-backup:latest
-    build: .  # Build locally since image doesn't exist yet
+    image: jaaywags/automated-mongo-backup:latest
+    # build: .  # Build locally since image doesn't exist yet
     container_name: automated-mongo-backup
     restart: unless-stopped
     environment:

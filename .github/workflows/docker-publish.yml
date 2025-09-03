@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: yourusername/automated-mongo-backup
+  IMAGE_NAME: jaaywags/automated-mongo-backup
 
 jobs:
   build-and-push:
