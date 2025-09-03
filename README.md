@@ -1,10 +1,14 @@
-# Automated MongoDB Backup System with Web UI
+<div align="center">
+  <img src="https://github.com/jaaywags/automated-mongo-backup/blob/main/images/Logo.png?raw=true" alt="MongoDB Backup Logo" width="200">
+  
+  # Automated MongoDB Backup System with Web UI
 
-A production-ready Docker container that automatically backs up MongoDB databases with multiple backup schedules, comprehensive web dashboard, and minimal impact on database performance.
+  A production-ready Docker container that automatically backs up MongoDB databases with multiple backup schedules, comprehensive web dashboard, and minimal impact on database performance.
 
-**🐳 [Docker Hub Repository](https://hub.docker.com/r/jaaywags/automated-mongo-backup)**
+  **🐳 [Docker Hub Repository](https://hub.docker.com/r/jaaywags/automated-mongo-backup)**
 
-![Demo](https://github.com/jaaywags/automated-mongo-backup/blob/main/images/Demo.gif?raw=true)
+  ![Demo](https://github.com/jaaywags/automated-mongo-backup/blob/main/images/Demo.gif?raw=true)
+</div>
 
 ## Features
 
