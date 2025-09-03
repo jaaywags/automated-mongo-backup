@@ -671,15 +671,39 @@ function initializeWebServer() {
       }
       
       const stats = rows[0];
-      const maxBackups = backupType === 'daily' ? MAX_DAILY_BACKUPS : -1;
+      let maxInfo = {};
+      
+      if (backupType === 'daily') {
+        maxInfo = {
+          max_backups: MAX_DAILY_BACKUPS,
+          max_type: 'backups'
+        };
+      } else if (backupType === 'weekly') {
+        maxInfo = {
+          max_backups: MAX_AGE_OF_WEEKLY_BACKUPS,
+          max_type: 'weeks'
+        };
+      } else if (backupType === 'monthly') {
+        maxInfo = {
+          max_backups: MAX_AGE_OF_MONTHLY_BACKUPS,
+          max_type: 'months'
+        };
+      } else if (backupType === 'yearly') {
+        maxInfo = {
+          max_backups: MAX_AGE_OF_YEARLY_BACKUPS,
+          max_type: 'years'
+        };
+      }
       
       res.json({
         total_successful_backups: stats.successful_backups || 0,
         total_failed_backups: stats.failed_backups || 0,
-        max_backups: maxBackups,
+        max_backups: maxInfo.max_backups,
+        max_type: maxInfo.max_type,
         total_available_successful_backups: stats.successful_backups || 0,
         average_duration_seconds: Math.round(stats.avg_duration || 0),
-        total_size_mb: Math.round((stats.total_size || 0) / 1024 / 1024)
+        total_size_mb: Math.round((stats.total_size || 0) / 1024 / 1024),
+        database_name: extractDatabaseName(MONGO_CONNECTION_STRING)
       });
     });
   });

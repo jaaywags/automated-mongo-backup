@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MongoDB Backup Dashboard</title>
+    <title id="page-title">MongoDB Backup Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -325,7 +325,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>MongoDB Backup Dashboard</h1>
+            <h1 id="main-title">MongoDB Backup Dashboard</h1>
             <div id="system-status">
                 <span class="status-indicator status-idle">System Idle</span>
             </div>
@@ -470,6 +470,24 @@
                 const response = await fetch(`/api/stats/${currentBackupType}`);
                 const stats = await response.json();
                 
+                // Update page title and header with database name
+                if (stats.database_name) {
+                    const title = `${stats.database_name} - MongoDB Backup Dashboard`;
+                    document.getElementById('page-title').textContent = title;
+                    document.getElementById('main-title').textContent = `${stats.database_name} - MongoDB Backup Dashboard`;
+                }
+                
+                // Format max backups based on type
+                let maxDisplay = '';
+                let maxLabel = '';
+                if (stats.max_type === 'backups') {
+                    maxDisplay = stats.max_backups === -1 ? '∞' : stats.max_backups;
+                    maxLabel = 'Max Backups';
+                } else {
+                    maxDisplay = stats.max_backups === -1 ? '∞' : `${stats.max_backups} ${stats.max_type}`;
+                    maxLabel = 'Max Age';
+                }
+                
                 const statsContainer = document.getElementById('stats-container');
                 statsContainer.innerHTML = `
                     <div class="stat-card">
@@ -481,19 +499,19 @@
                         <div class="stat-label">Failed Backups</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${stats.max_backups === -1 ? '∞' : stats.max_backups}</div>
-                        <div class="stat-label">Max Backups</div>
+                        <div class="stat-value">${maxDisplay}</div>
+                        <div class="stat-label">${maxLabel}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.total_available_successful_backups}</div>
                         <div class="stat-label">Available Backups</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${stats.average_duration_seconds}s</div>
+                        <div class="stat-value">${formatDuration(stats.average_duration_seconds)}</div>
                         <div class="stat-label">Avg Duration</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${stats.total_size_mb}MB</div>
+                        <div class="stat-value">${formatSize(stats.total_size_mb)}</div>
                         <div class="stat-label">Total Size</div>
                     </div>
                 `;
@@ -536,6 +554,29 @@
                 console.error('Error loading backups:', error);
                 document.getElementById('backup-list-content').innerHTML = '<div class="error">Error loading backups</div>';
             }
+        }
+        
+        function formatDuration(seconds) {
+            if (seconds === 0) return '0s';
+            
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            let result = '';
+            if (hours > 0) result += `${hours}H `;
+            if (minutes > 0) result += `${minutes}M `;
+            if (secs > 0) result += `${secs}S`;
+            
+            return result.trim();
+        }
+        
+        function formatSize(mb) {
+            if (mb >= 1024) {
+                const gb = (mb / 1024).toFixed(1);
+                return `${Number(gb).toLocaleString()} GB`;
+            }
+            return `${mb.toLocaleString()} MB`;
         }
         
         async function viewLogs(backupId) {
