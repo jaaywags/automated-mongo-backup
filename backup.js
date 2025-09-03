@@ -772,8 +772,11 @@ function initializeWebServer() {
 
 // Start the application
 async function startApplication() {
-  await startBackupScheduler();
+  // Start web server first so it's immediately available
   initializeWebServer();
+  
+  // Then start backup scheduler (which includes initial backups)
+  await startBackupScheduler();
 }
 
 startApplication().catch((error) => {
