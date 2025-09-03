@@ -70,6 +70,7 @@ Access the web dashboard at `http://localhost:3000` (or your server IP) to:
 | `NUMBER_OF_YEARLY_BACKUPS` | Yearly backups (Jan 1st) | `5` | ❌ |
 | `MAX_AGE_OF_YEARLY_BACKUPS` | Max age of yearly backups (years) | `5` | ❌ |
 | `BACKUP_PATH` | Container path for backups | `/backups` | ❌ |
+| `BACKUP_HOST_PATH` | Backup location on host machine | `./backups` | ❌ |
 | `WEB_UI_PORT` | Web dashboard port | `3000` | ❌ |
 | `TIMEZONE` | Timezone for scheduling | `UTC` | ❌ |
 
