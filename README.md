@@ -234,13 +234,13 @@ To restore from a backup:
 
 ```bash
 # Extract downloaded backup first
-tar -xzf 20250902_141500_softgoods-stage.tar.gz
+tar -xzf 20250902_141500_MyDatabase.tar.gz
 
 # Restore entire database
-mongorestore --uri="mongodb://user:pass@host:27017" ./20250902_141500_softgoods-stage/
+mongorestore --uri="mongodb://user:pass@host:27017" ./20250902_141500_MyDatabase/
 
 # Restore specific collection
-mongorestore --uri="mongodb://user:pass@host:27017" --collection=users ./20250902_141500_softgoods-stage/softgoods-stage/users.bson
+mongorestore --uri="mongodb://user:pass@host:27017" --collection=users ./20250902_141500_MyDatabase/MyDatabase/users.bson
 ```
 
 ## License
