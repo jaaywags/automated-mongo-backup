@@ -2,6 +2,8 @@
 
 A production-ready Docker container that automatically backs up MongoDB databases with multiple backup schedules, comprehensive web dashboard, and minimal impact on database performance.
 
+**🐳 [Docker Hub Repository](https://hub.docker.com/r/jaaywags/automated-mongo-backup)**
+
 ![Demo](https://github.com/jaaywags/automated-mongo-backup/blob/main/images/Demo.gif?raw=true)
 
 ## Features
